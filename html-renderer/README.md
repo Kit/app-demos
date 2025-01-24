@@ -1,6 +1,6 @@
-# ConvertKit Editor Plugin Demo
+# Kit Editor Plugin Demo
 
-This directory serves as an example of how you can structure your application to respond to ConvertKit's editor plugin framework. It contains a _search_ endpoint, which can respond to requests from the ConvertKit sidebar, and an _HTML_ endpoint, which can generate an element for the editor based on the user's selected settings. You can view the comments in `index.js` to learn more about the implementation.
+This directory serves as an example of how you can structure your application to respond to Kit's editor plugin framework. It contains a _search_ endpoint, which can respond to requests from the Kit sidebar, and an _HTML_ endpoint, which can generate an element for the editor based on the user's selected settings. You can view the comments in `index.js` to learn more about the implementation.
 
 If you want to run this app locally, you can do so by running:
 
@@ -9,7 +9,7 @@ npm install
 npm run start
 ```
 
-These endpoints assume that your plugin would be structured as follows on your [plugin dashboard](https://app.convertkit.com/account_settings/developer_settings)  ([requires developer access](https://convertkit.typeform.com/to/nsTUorqw)).
+These endpoints assume that your plugin would be structured as follows on your [plugin dashboard](https://app.kit.com/account_settings/developer_settings)  ([requires developer access](https://kit.typeform.com/to/nsTUorqw)).
 
 - **Plugin name:**
 
