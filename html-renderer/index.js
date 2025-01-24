@@ -250,7 +250,7 @@ Example request:
 }
 */
 app.post('/posts/html', (request, response) => {
-  // Access the settings the user selected in ConvertKit's sidebar with:
+  // Access the settings the user selected in Kit's sidebar with:
   const settings = request.body.settings
 
   // If needed, you can access the surrounding styles with:
