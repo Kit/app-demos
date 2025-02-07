@@ -11,10 +11,11 @@
         Authorization URL: https://localhost:8080/oauth/kit
              Redirect URI: https://localhost:8080/oauth/kit/callback
 
-3. After cloning this repository, create an `.env` file and add the client ID and secret from the Developer Settings:
+3. After cloning this repository, create an `.env` file and add the client ID and secret ID from the Developer Settings. Set the KIT_SERVER if needed:
 
         KIT_OAUTH_CLIENT_ID="FILL ME IN"
         KIT_OAUTH_CLIENT_SECRET="FILL ME IN"
+        KIT_SERVER=ck.lol
 
 4. Install dependencies
 
@@ -26,7 +27,7 @@
 
     Place cert in `example.com.pem` & `example.com-key.pem`
 
-6. Start the server. If developing locally, change the KIT_SERVER from `kit.com` to `ck.lol` on this [line](https://github.com/Kit/app-demos/blob/0c86c93c34bf5c7b47bb170b6a12dbda31d88e6f/oauth-express/kit-oauth.js#L4).
+6. Start server
 
         npm start
 
