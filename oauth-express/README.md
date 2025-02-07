@@ -4,14 +4,14 @@
 
 ## Usage
 
-1. First you must create your app inside the Kit Developer Settings
+1. First you must create your app inside the Kit Developer Settings. If developing locally, you can create the app in the main Kit repository.
 
 2. Then configure API Access:
 
         Authorization URL: https://localhost:8080/oauth/kit
              Redirect URI: https://localhost:8080/oauth/kit/callback
 
-3. Create `.env` file and add the client ID and secret from the Developer Settings:
+3. After cloning this repository, create an `.env` file and add the client ID and secret from the Developer Settings:
 
         KIT_OAUTH_CLIENT_ID="FILL ME IN"
         KIT_OAUTH_CLIENT_SECRET="FILL ME IN"
@@ -26,7 +26,7 @@
 
     Place cert in `example.com.pem` & `example.com-key.pem`
 
-6. Start server
+6. Start the server. If developing locally, change the KIT_SERVER from `kit.com` to `ck.lol` on this [line](https://github.com/Kit/app-demos/blob/0c86c93c34bf5c7b47bb170b6a12dbda31d88e6f/oauth-express/kit-oauth.js#L4).
 
         npm start
 
@@ -42,5 +42,4 @@
         }
         Listening on :8080
 
-7. From here, clicking the "Install" button in the App Store will initiate the OAuth flow
-   by first going to your configured Authorization URL
+7. From here, clicking the "Install" button in the App Store will initiate the OAuth flow by first going to your configured Authorization URL
