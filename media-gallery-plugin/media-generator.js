@@ -33,6 +33,7 @@ const MEDIA_ITEMS = faker.helpers.multiple(
 function search({ query }) {
   if (query) {
     const fuse = new Fuse(MEDIA_ITEMS, {
+      threshold: 0.8,
       keys: ['title', 'caption', 'attribution.label'],
     })
     return fuse.search(query).map(search => search.item)
