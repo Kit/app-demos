@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require('express')
-const { search, paginate } = require('./media-generator')
+const { search, paginate, find } = require('./media-generator')
 const app = express()
-const port = 3001
+const port = process.env.PORT || 3001
 
 app.use(express.json())
 
@@ -41,6 +42,18 @@ app.get('/media', (request, response) => {
   })
 })
 
+/**
+ * Responds to request that a media item was downloaded.
+ */
+app.post('/media/:id/downloaded', (request, response) => {
+  const media = find(request.url)
+  console.log(
+    `${media.title} ${media.href} ${request.params.id} was downloaded!`
+  )
+
+  response.sendStatus(204)
+})
+
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
+  console.log(`Server running at :${port}`)
 })

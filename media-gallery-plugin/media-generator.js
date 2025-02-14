@@ -6,7 +6,6 @@ const Fuse = require('fuse.js')
  */
 const MEDIA_ITEMS = faker.helpers.multiple(
   () => ({
-    id: faker.string.nanoid(),
     alt: faker.lorem.sentence(),
     caption: faker.lorem.words(),
     title: faker.system.commonFileName('jpg'),
@@ -17,12 +16,17 @@ const MEDIA_ITEMS = faker.helpers.multiple(
       grayscale: false,
     }),
     hotlink: faker.datatype.boolean(),
-    attribution: faker.datatype.boolean()
-      ? {
-          label: faker.person.fullName(),
-          href: `https://${faker.internet.domainName()}/abc?utm_source=your_app_name&utm_medium=referral`,
-        }
-      : null,
+    ...(faker.datatype.boolean() && {
+      attribution: {
+        label: faker.person.fullName(),
+        href: `https://${faker.internet.domainName()}/abc?utm_source=your_app_name&utm_medium=referral`,
+      },
+    }),
+    ...(faker.datatype.boolean() && {
+      notify_download_url: `${
+        process.env.URL
+      }/media/${faker.string.nanoid()}/downloaded`,
+    }),
   }),
   { count: 2000 }
 )
@@ -71,8 +75,13 @@ function paginate(data, { before, after, perPage }) {
   }
 }
 
+function find({ url }) {
+  return MEDIA_ITEMS.find(media => media.notify_download_url === url)
+}
+
 module.exports = {
   MEDIA_ITEMS,
   search,
   paginate,
+  find,
 }

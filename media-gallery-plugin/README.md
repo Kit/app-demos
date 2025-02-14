@@ -10,6 +10,7 @@ implementation.
 If you want to run this app locally, you can do so by running:
 
 ```
+cp .env.example .env
 npm install
 npm run start
 ```
