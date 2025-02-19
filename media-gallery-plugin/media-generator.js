@@ -6,6 +6,7 @@ const Fuse = require('fuse.js')
  */
 const MEDIA_ITEMS = faker.helpers.multiple(
   () => ({
+    type: 'image',
     alt: faker.lorem.sentence(),
     caption: faker.lorem.words(),
     title: faker.system.commonFileName('jpg'),
