@@ -9,13 +9,15 @@ app.use(express.json())
 /**
  * Responds to request for listing media items.
  * - Expects pagination query params: `after`, `before`, and `per_page`.
- * - Expects settings query params: `settings.query` (configured in plugin settings)
+ * - Expects search query param: `search.<setting name>` (configured in plugin settings)
+ * - Expects filter query params: `filters.<setting name>` (configured in plugin settings)
+ * - Expects sort query param: `sort.<setting name>` (configured in plugin settings)
  */
 app.get('/media', (request, response) => {
   console.log(request.query)
 
   const mediaItems = search({
-    query: request.query.settings?.query,
+    query: request.query.search?.query,
   })
   const {
     data,
