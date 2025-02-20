@@ -1,6 +1,13 @@
 require('dotenv').config()
 const express = require('express')
-const { search, paginate, find } = require('./media-generator')
+const {
+  search,
+  filter,
+  sort,
+  paginate,
+  find,
+  MEDIA_ITEMS,
+} = require('./media-generator')
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -16,21 +23,31 @@ app.use(express.json())
 app.get('/media', (request, response) => {
   console.log(request.query)
 
-  const mediaItems = search({
-    query: request.query.search?.query,
-  })
+  const searchedMedia = search(MEDIA_ITEMS, request.query.search?.query)
+  const filteredMedia = filter(searchedMedia, request.query.filter || {})
+  const sortedMedia = sort(filteredMedia, request.query.sort || {})
   const {
-    data,
+    data: paginatedMedia,
     perPage,
     startCursor,
     endCursor,
     hasPreviousPage,
     hasNextPage,
-  } = paginate(mediaItems, {
+  } = paginate(sortedMedia, {
     after: request.query.after,
     before: request.query.before,
     perPage: Math.min(Number.parseInt(request.query.per_page || '100'), 1000),
   })
+  const data = paginatedMedia.map(mediaItem => ({
+    type: mediaItem.type,
+    alt: mediaItem.alt,
+    caption: mediaItem.caption,
+    title: mediaItem.title,
+    href: mediaItem.href,
+    hotlink: mediaItem.hotlink,
+    attribution: mediaItem.attribution,
+    notify_download_url: mediaItem.notify_download_url,
+  }))
 
   response.json({
     data,

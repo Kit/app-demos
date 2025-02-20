@@ -28,22 +28,56 @@ const MEDIA_ITEMS = faker.helpers.multiple(
         process.env.URL
       }/media/${faker.string.nanoid()}/downloaded`,
     }),
+
+    labels: faker.helpers.arrayElement([
+      [],
+      ['my_content'],
+      ['my_content', 'favorite'],
+      ['shared'],
+    ]),
+    created_at: faker.date.anytime(),
   }),
   { count: 2000 }
 )
 
 /**
- * Searches for media items using settings. Search uses a fuzzy search.
+ * Searches for media items using query.
  */
-function search({ query }) {
+function search(items, query) {
+  const fuse = new Fuse(items, {
+    threshold: 0.8,
+    keys: ['title', 'caption', 'attribution.label'],
+  })
   if (query) {
-    const fuse = new Fuse(MEDIA_ITEMS, {
-      threshold: 0.8,
-      keys: ['title', 'caption', 'attribution.label'],
-    })
     return fuse.search(query).map(search => search.item)
   }
-  return MEDIA_ITEMS
+  return items
+}
+
+/**
+ * Filters for media items
+ */
+function filter(items, params) {
+  if (params.label) {
+    return items.filter(item => item.labels.includes(params.label))
+  }
+  return items
+}
+
+/**
+ * Sort for media items
+ */
+function sort(items, params) {
+  if (params.alphabetical === 'asc') {
+    return items.slice().sort((a, b) => a.caption.localeCompare(b.caption))
+  } else if (params.alphabetical === 'desc') {
+    return items.slice().sort((a, b) => a.caption.localeCompare(b.caption) * -1)
+  } else if (params.created === 'asc') {
+    return items.slice().sort((a, b) => b.created_at - a.created_at)
+  } else if (params.created === 'desc') {
+    return items.slice().sort((a, b) => (b.created_at - a.created_at) * -1)
+  }
+  return items
 }
 
 /**
@@ -83,6 +117,8 @@ function find({ url }) {
 module.exports = {
   MEDIA_ITEMS,
   search,
+  filter,
+  sort,
   paginate,
   find,
 }
