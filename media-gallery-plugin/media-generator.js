@@ -5,38 +5,40 @@ const Fuse = require('fuse.js')
  * Fake media items. For a real plugin, this would come from a database or API.
  */
 const MEDIA_ITEMS = faker.helpers.multiple(
-  () => ({
-    type: 'image',
-    alt: faker.lorem.sentence(),
-    caption: faker.lorem.words(),
-    title: faker.system.commonFileName('jpg'),
-    href: faker.image.urlPicsumPhotos({
-      width: 600,
-      height: 900,
-      blur: 0,
-      grayscale: false,
-    }),
-    hotlink: faker.datatype.boolean(),
-    ...(faker.datatype.boolean() && {
-      attribution: {
-        label: faker.person.fullName(),
-        href: `https://${faker.internet.domainName()}/abc?utm_source=your_app_name&utm_medium=referral`,
-      },
-    }),
-    ...(faker.datatype.boolean() && {
-      notify_download_url: `${
-        process.env.URL
-      }/media/${faker.string.nanoid()}/downloaded`,
-    }),
+  () => {
+    const id = faker.string.nanoid()
+    return {
+      id,
+      type: 'image',
+      alt: faker.lorem.sentence(),
+      caption: faker.lorem.words(),
+      title: faker.system.commonFileName('jpg'),
+      href: faker.image.urlPicsumPhotos({
+        width: 600,
+        height: 900,
+        blur: 0,
+        grayscale: false,
+      }),
+      hotlink: faker.datatype.boolean(),
+      ...(faker.datatype.boolean() && {
+        attribution: {
+          label: faker.person.fullName(),
+          href: `https://${faker.internet.domainName()}/abc?utm_source=your_app_name&utm_medium=referral`,
+        },
+      }),
+      ...(faker.datatype.boolean() && {
+        notify_download_url: `${process.env.URL}/media/${id}/downloaded`,
+      }),
 
-    labels: faker.helpers.arrayElement([
-      [],
-      ['my_content'],
-      ['my_content', 'favorite'],
-      ['shared'],
-    ]),
-    created_at: faker.date.anytime(),
-  }),
+      labels: faker.helpers.arrayElement([
+        [],
+        ['my_content'],
+        ['my_content', 'favorite'],
+        ['shared'],
+      ]),
+      created_at: faker.date.anytime(),
+    }
+  },
   { count: 2000 }
 )
 

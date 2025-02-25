@@ -39,6 +39,7 @@ app.get('/media', (request, response) => {
     perPage: Math.min(Number.parseInt(request.query.per_page || '100'), 1000),
   })
   const data = paginatedMedia.map(mediaItem => ({
+    id: mediaItem.id,
     type: mediaItem.type,
     alt: mediaItem.alt,
     caption: mediaItem.caption,
