@@ -70,13 +70,13 @@ function filter(items, params) {
  * Sort for media items
  */
 function sort(items, params) {
-  if (params.alphabetical === 'asc') {
+  if (params.sort === 'alphabetical_asc') {
     return items.slice().sort((a, b) => a.caption.localeCompare(b.caption))
-  } else if (params.alphabetical === 'desc') {
+  } else if (params.sort === 'alphabetical_desc') {
     return items.slice().sort((a, b) => a.caption.localeCompare(b.caption) * -1)
-  } else if (params.created === 'asc') {
+  } else if (params.sort === 'created_asc') {
     return items.slice().sort((a, b) => b.created_at - a.created_at)
-  } else if (params.created === 'desc') {
+  } else if (params.sort === 'created_desc') {
     return items.slice().sort((a, b) => (b.created_at - a.created_at) * -1)
   }
   return items

@@ -23,9 +23,9 @@ app.use(express.json())
 app.get('/media', (request, response) => {
   console.log(request.query)
 
-  const searchedMedia = search(MEDIA_ITEMS, request.query.search?.query)
-  const filteredMedia = filter(searchedMedia, request.query.filter || {})
-  const sortedMedia = sort(filteredMedia, request.query.sort || {})
+  const searchedMedia = search(MEDIA_ITEMS, request.query.settings?.query)
+  const filteredMedia = filter(searchedMedia, request.query.settings || {})
+  const sortedMedia = sort(filteredMedia, request.query.settings || {})
   const {
     data: paginatedMedia,
     perPage,
@@ -72,6 +72,19 @@ app.post('/media/:id/downloaded', (request, response) => {
   )
 
   response.sendStatus(204)
+})
+
+/**
+ * Responds to request for listing folder options for dynamic select setting
+ */
+app.get('/folders', (request, response) => {
+  response.json({
+    options: [
+      { label: 'Home', value: 'home' },
+      { label: 'Favorites', value: 'favorites' },
+      { label: 'Shared', value: 'shared' },
+    ],
+  })
 })
 
 app.listen(port, () => {
