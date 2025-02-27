@@ -13,7 +13,13 @@ const MEDIA_ITEMS = faker.helpers.multiple(
       alt: faker.lorem.sentence(),
       caption: faker.lorem.words(),
       title: faker.system.commonFileName('jpg'),
-      href: faker.image.urlPicsumPhotos({
+      url: faker.image.urlPicsumPhotos({
+        width: 600,
+        height: 900,
+        blur: 0,
+        grayscale: false,
+      }),
+      thumbnail_url: faker.image.urlPicsumPhotos({
         width: 600,
         height: 900,
         blur: 0,

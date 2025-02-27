@@ -44,7 +44,8 @@ app.get('/media', (request, response) => {
     alt: mediaItem.alt,
     caption: mediaItem.caption,
     title: mediaItem.title,
-    href: mediaItem.href,
+    url: mediaItem.url,
+    thumbnail_url: mediaItem.thumbnail_url,
     hotlink: mediaItem.hotlink,
     attribution: mediaItem.attribution,
     notify_download_url: mediaItem.notify_download_url,
@@ -68,7 +69,7 @@ app.get('/media', (request, response) => {
 app.post('/media/:id/downloaded', (request, response) => {
   const media = find(request.url)
   console.log(
-    `${media.title} ${media.href} ${request.params.id} was downloaded!`
+    `${media.title} ${media.url} ${request.params.id} was downloaded!`
   )
 
   response.sendStatus(204)
