@@ -1,0 +1,26 @@
+{
+  "name": "kit-media-gallery-demo",
+  "private": true,
+  "description": "Example server for a Kit Media Gallery plugin",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "npx nodemon"
+  },
+  "author": "Kit",
+  "license": "MIT",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.5.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "fuse.js": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
